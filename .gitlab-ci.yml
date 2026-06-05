@@ -1,0 +1,17 @@
+# CI de Nível 01 - Disparo manual através de clique
+
+stages:
+  - test
+
+playwright-tests:
+  stage: test
+
+  image: node:24
+
+  script:
+    - npm install -g yarn
+    - yarn
+    - npx playwright install
+    - yarn run e2e
+      
+
