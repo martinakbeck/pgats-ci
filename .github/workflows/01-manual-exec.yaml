@@ -40,5 +40,14 @@ jobs:
       - name: Executando os testes
         run: yarn run e2e
 
+      #notificação discord
+      - name: Notificando o Discord
+        if: always()
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: 'Pipeline concluída. Status: ${{ job.status }}'
+
       
 
