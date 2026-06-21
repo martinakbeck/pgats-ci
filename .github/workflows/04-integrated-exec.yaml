@@ -8,10 +8,9 @@ name: 'CI - Execução Integrada'
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ['CI - Manual Execução', 'CI - Execução Agendada'] #nome da pipeline que vai disparar essa pipeline
-    types:
-      - completed
+  push:
+    branches:
+      - master
 
 #tarefas executadas dentro da pipe
 jobs:
@@ -82,6 +81,13 @@ jobs:
       #execução dos testes
       - name: Executando os testes
         run: yarn run e2e
+
+      - name: Gerando relatório de testes
+        run: actions/upload-artifact@v4
+        if: ${always()} #garante que o relatório seja gerado mesmo que os testes falhem
+        with:
+          name: Relatório de Testes E2E
+          path: ./playwright-report #caminho onde o relatório é gerado
 
   deploy:
     runs-on: ubuntu-latest
