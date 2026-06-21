@@ -38,26 +38,57 @@ jobs:
       - name: Instalando dependências
         run: yarn
 
-      
+
       - name: Inspenção de código
         run: yarn run lint
 
-      #instalação dos Browser do Playwright
-      - name: Instalando os Browsers do Playwright
-        run: npx playwright install
+  unidade:
+    runs-on: ubuntu-latest
+    needs: [inspecao] #garante que o job de inspeção seja concluído antes de iniciar os testes unitários
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
 
+      - name: Instalando do Yarn
+        run: npm install -g yarn
+
+      - name: Instalando dependências
+        run: yarn 
+
+      - name: Executando os testes unitários
+        run: yarn run test
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: [inspecao]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+            node-version: latest
+
+      - name: Instalando do Yarn
+        run: npm install -g yarn
+
+      - name: Instalando dependências
+        run: yarn
+
+      -name: Instalando browser do Playwright
+        run: yarn playwright install
+    
       #execução dos testes
       - name: Executando os testes
         run: yarn run e2e
 
-      #notificação discord
-      - name: Notificando o Discord
-        if: always()
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        with:
-          args: 'Pipeline concluída. Status: ${{ job.status }}'
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [unidade, e2e]
+    steps:
+      -name: Simulação de Deploy
+        run: echo 'Deploy sendo realidado'
+
 
       
 
