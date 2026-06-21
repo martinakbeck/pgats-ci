@@ -13,7 +13,8 @@ jobs:
   #nome do job
   e2e-tests:
     #maquina onde o job vai rodar
-    runs-on: ubuntu-latest #git que vai disponibilizar a máquina virtual
+    runs-on: ubuntu-latest
+    #git que vai disponibilizar a máquina virtual
     #passos do job
     steps:
       #clone do projeto
@@ -48,6 +49,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           args: 'Pipeline concluída. Status: ${{ job.status }}'
-
-      
 

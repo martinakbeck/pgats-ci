@@ -55,5 +55,4 @@ jobs:
         with:
           args: 'Pipeline concluída. Status: ${{ job.status }}'
 
-      
 

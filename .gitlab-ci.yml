@@ -13,5 +13,3 @@ playwright-tests:
     - yarn
     - npx playwright install
     - yarn run e2e
-      
-

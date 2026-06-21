@@ -38,5 +38,4 @@ jobs:
       - name: Executando os testes
         run: yarn run e2e
 
-      
 
