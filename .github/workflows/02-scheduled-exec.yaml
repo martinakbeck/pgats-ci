@@ -12,7 +12,7 @@ on:
     # de segunda a sexta 1-5, sabado e domingo 0,6
     # horarios diferentes por dia  da semana add um cron por dia da semana
     # 0 - domingo, 6 - sábado
-    - cron: '*/5 * * * *' #meia-noite, domingo
+    - cron: '*/8 * * * *' #meia-noite, domingo
 
 #tarefas executadas dentro da pipe
 jobs:
