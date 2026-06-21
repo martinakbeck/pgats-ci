@@ -9,7 +9,7 @@ on:
   schedule:
     #cronograma de execução
     # minutos, hora, dia do mês, mês, dia da semana
-    - cron: '40 18 * * 0' #meia-noite, domingo
+    - cron: '40 18 * * *' #meia-noite, domingo
 
 #tarefas executadas dentro da pipe
 jobs:
