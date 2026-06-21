@@ -7,6 +7,7 @@ name: 'CI - Execução Integrada'
 # gatilho por conclusão de outra pipeline - workflow_run
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ['CI - Manual Execução', 'CI - Execução Agendada'] #nome da pipeline que vai disparar essa pipeline
     types:
