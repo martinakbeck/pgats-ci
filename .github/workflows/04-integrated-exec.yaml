@@ -1,25 +1,24 @@
 # CI de Nível 03 - Disparo após a conclusão de outra pipeline
 
 #nome da pipe
-name: 'CI - Execução por Deploy'
+name: 'CI - Execução Integrada'
 
 # gatilhos / triggers -> regras de disparo
 # gatilho por conclusão de outra pipeline - workflow_run
 
 on:
   workflow_run:
-    workflows: ['CI - Manual Execução', 'CI - Execução Agendada']
+    workflows: ['CI - Manual Execução', 'CI - Execução Agendada'] #nome da pipeline que vai disparar essa pipeline
     types:
       - completed
 
 #tarefas executadas dentro da pipe
 jobs:
   #nome do job
-  e2e-tests:
+  inspecao:
     #maquina onde o job vai rodar
     runs-on: ubuntu-latest #git que vai disponibilizar a máquina virtual
     #validar se a pipeline anterior foi bem sucedida
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     #passos do job
     steps:
@@ -29,7 +28,7 @@ jobs:
       #instalação do node
       - uses: actions/setup-node@v4
         with:
-          node-version: 24.x
+          node-version: latest
 
       #instalação do yarn
       - name: Instalando do Yarn
@@ -38,6 +37,10 @@ jobs:
       #instalação das dependências
       - name: Instalando dependências
         run: yarn
+
+      
+      - name: Inspenção de código
+        run: yarn run lint
 
       #instalação dos Browser do Playwright
       - name: Instalando os Browsers do Playwright
